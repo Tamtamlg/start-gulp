@@ -1,0 +1,197 @@
+@import "variables.scss";
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+::-webkit-input-placeholder {
+  color: $placeholder;
+}
+
+::-moz-placeholder {
+  color: $placeholder;
+}
+
+:-moz-placeholder {
+  color: $placeholder;
+}
+
+:-ms-input-placeholder {
+  color: $placeholder;
+}
+
+// @media (min-width: 1300px) {
+//   .container {
+//     max-width: 1320px;
+//   }
+// }
+/* fixed footer */
+
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.content {
+  flex-grow: 1;
+  width: 100%;
+  position: relative;
+}
+
+/* /fixed footer */
+
+/* preloader */
+
+#page-preloader {
+  position: fixed;
+  display: flex;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  z-index: 100500;
+}
+
+.loader {
+  margin: auto;
+  display: inline-block;
+}
+
+.loader:before {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid #e6e6e6;
+  border-top: 3px solid #cccccc;
+  border-radius: 50%;
+  -webkit-animation: loader-rotate 1s linear infinite;
+  animation: loader-rotate 1s linear infinite;
+}
+
+@keyframes loader-rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* /preloader */
+
+/* bootstrap hack: fix content width inside hidden tabs */
+
+.tab-content>.tab-pane,
+.pill-content>.pill-pane {
+  display: block;
+  height: 0;
+  overflow: hidden;
+}
+
+.tab-content>.active,
+.pill-content>.active {
+  height: auto;
+}
+
+/* /bootstrap hack */
+
+/* custom radio and checkbox */
+
+.radio-label {
+  position: relative;
+}
+
+.input-group {
+  input[type="radio"],
+  input[type="checkbox"] {
+    display: none;
+  }
+}
+
+input[type="radio"]+label,
+input[type="checkbox"]+label {
+  display: flex;
+  margin: 0;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+input[type="radio"]+label:before {
+  content: '';
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin-right: 10px;
+}
+
+input[type="radio"]:checked+label:after {
+  content: '';
+  background: $black;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  display: block;
+  position: absolute;
+  left: 4px;
+  top: 6px;
+}
+
+input[type="checkbox"]+label:before {
+  content: '';
+  border: 1px solid #ddd;
+  width: 18px;
+  height: 18px;
+  display: block;
+  margin-right: 10px;
+}
+
+input[type="checkbox"]:checked+label:before {
+  background: $black url(../img/checkbox.svg) center no-repeat;
+  background-size: 11px 8px;
+  border-color: $black;
+}
+
+/* /custom radio and checkbox*/
+
+/* validation */
+
+.input-wrap {
+  position: relative;
+}
+
+input.error {
+  border: 1px solid $error;
+}
+
+.help-block.form-error {
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  font-size: 12px;
+  color: $error;
+  z-index: 1;
+}
+
+/* /validation */
+
+/* disable pointer-events */
+svg {
+  pointer-events: none;
+}
+
+.disable-hover,
+.disable-hover * {
+  pointer-events: none !important;
+}
+/* disable pointer-events */
+
+@import "_includes.scss"

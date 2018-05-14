@@ -1,0 +1,26 @@
+{
+  "name": "vencon",
+  "version": "1.0.0",
+  "main": "Gruntfile.js",
+  "author": "Tamtamlg",
+  "license": "ISC",
+  "devDependencies": {
+    "csscomb": "^4.2.0",
+    "grunt": "^1.0.1",
+    "grunt-autoprefixer": "^3.0.4",
+    "grunt-browser-sync": "^2.2.0",
+    "grunt-combine-media-queries": "^1.0.20",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-imagemin": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-csscomb": "^3.1.1",
+    "grunt-include-replace": "^5.0.0",
+    "grunt-prettify": "^0.4.0",
+    "grunt-sass": "^2.1.0",
+    "grunt-sass-compile-imports": "^0.2.2",
+    "grunt-svgo": "^0.1.0",
+    "grunt-svgstore": "^1.0.0",
+    "load-grunt-tasks": "^3.5.2"
+  }
+}
