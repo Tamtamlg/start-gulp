@@ -236,7 +236,7 @@ gulp.task('serve', ['build'], function() {
   ], ['style']);
   // Слежение за html
   gulp.watch([
-    dirs.source + '/*.html',
+    dirs.source + '/**/*.html',
   ], ['watch:html']);
   // Слежение за изображениями
   if(images.length) {
