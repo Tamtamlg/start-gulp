@@ -1,4 +1,4 @@
-# Стартовый проект с grunt
+# Стартовый проект с gulp
 
 <table>
   <thead>
@@ -56,15 +56,15 @@ src/            # Исходные файлы.
 ## Разметка
 
 HTML обрабатывается "gulp-file-include".
-Блок вставляется в разметку так: `@@include('blocks/header/header.html')`, можно использовать json для передачи параметров ` @@include('tabs-slider-item/tabs-slider-item.html', {"img": "img/tabs-slider-2.jpg"})`. Параметры из json всавляются так: `<img src="@@img" alt="">`
+Блок вставляется в разметку так: `@@include('blocks/header/header.html')`, можно использовать json для передачи параметров ` @@include('tabs-slider__item/tabs-slider__item.html', {"img": "img/tabs-slider-2.jpg"})`. Параметры из json всавляются так: `<img src="@@img" alt="">`
 
 
 
 ## Стили
 
 Используется SCSS.
-`source/scss/style.scss` - Файл-диспетчер подключений стилей (только импорты).
-`source/scss/base.scss` - Глобальные слили.
+`source/scss/style.scss` - Файл-диспетчер подключений стилей (содержит только импорты).
+`source/scss/base.scss` - Базовые глобальные стили.
 `source/scss/variables.scss` - Переменные.
 `source/scss/fonts.scss` - Шрифты.
 
