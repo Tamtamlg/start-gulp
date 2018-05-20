@@ -16,10 +16,9 @@ const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const mqpacker = require('css-mqpacker');
 const objectFitImages = require('postcss-object-fit-images');
-const replace = require('gulp-replace');
 const del = require('del');
 const browserSync = require('browser-sync').create();
-const newer = require('gulp-newer');
+// const newer = require('gulp-newer'); //
 const imagemin = require('gulp-imagemin');
 const pngquant = require('imagemin-pngquant');
 const uglify = require('gulp-uglify');
@@ -27,12 +26,9 @@ const concat = require('gulp-concat');
 const cheerio = require('gulp-cheerio');
 const svgstore = require('gulp-svgstore');
 const svgmin = require('gulp-svgmin');
-const base64 = require('gulp-base64');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
 const cleanCSS = require('gulp-cleancss');
-const buffer = require('vinyl-buffer');
-const merge = require('merge-stream');
 const wait = require('gulp-wait');
 const htmlbeautify = require('gulp-html-beautify');
 const fileinclude = require('gulp-file-include');
@@ -57,10 +53,8 @@ let images = [
 
 // Cписок обрабатываемых файлов в указанной последовательности
 let jsList = [
-  // './node_modules/jquery/dist/jquery.min.js',
-  // './node_modules/jquery-migrate/dist/jquery-migrate.min.js',
-  // './node_modules/svg4everybody/dist/svg4everybody.js',
-  // './node_modules/object-fit-images/dist/ofi.js'
+  './node_modules/svg4everybody/dist/svg4everybody.js',
+  './node_modules/object-fit-images/dist/ofi.js'
 ];
 
 // Компиляция и обработка стилей
@@ -99,7 +93,7 @@ gulp.task('html', function() {
 });
 
 // Копирование изображений
-gulp.task('copy:img', function () {
+gulp.task('copy:img', function (callback) {
   if(images.length) {
     return gulp.src(images)
       .pipe(rename({dirname: ''}))
@@ -196,7 +190,7 @@ gulp.task('clean', function () {
 });
 
 // Конкатенация и сжатие Javascript
-gulp.task('js', function () {
+gulp.task('js', function (callback) {
   if(jsList.length) {
     return gulp.src(jsList)
       .pipe(plumber({ errorHandler: onError }))             // не останавливаем автоматику при ошибках
@@ -206,7 +200,7 @@ gulp.task('js', function () {
   }
   else {
     console.log('Javascript не обрабатывается');
-    // callback();
+    callback();
   }
 });
 
