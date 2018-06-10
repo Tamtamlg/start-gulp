@@ -3,7 +3,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: $ns;
+  font-family: $font;
   font-size: 14px;
   color: #000;
 }
@@ -39,24 +39,23 @@ body {
   color: #9d9d9d;
 }
 
-@media (min-width: 1300px) {
-  .container {
-    max-width: 1290px;
-  }
-}
+// @media (min-width: 1300px) {
+//   .container {
+//     max-width: 1290px;
+//   }
+// }
 
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1170px;
-  }
-}
+// @media (min-width: 1200px) {
+//   .container {
+//     max-width: 1170px;
+//   }
+// }
 
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-    padding: 0;
-  }
-}
+// @media (min-width: 768px) {
+//   .container {
+//     max-width: 730px;
+//   }
+// }
 
 /* fix footer */
 
@@ -97,7 +96,7 @@ body {
 .spinner>div {
   width: 18px;
   height: 18px;
-  background-color: $indigo;
+  background-color: red;
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
@@ -158,32 +157,17 @@ body {
 
 /* btn */
 
-.btn-indigo {
+.btn-main {
   color: #fff;
-  background-color: $indigo;
-  border-color: $indigo;
+  background-color: red;
+  border-color: red;
   height: 50px;
   line-height: 36px;
   &:hover,
   &:focus {
-    background-color: $indigohover;
-    border-color: $indigohover;
+    // background-color: redhover;
+    // border-color: redhover;
     color: #fff;
-  }
-}
-
-.btn-lime {
-  color: #000;
-  font-weight: bold;
-  background-color: $lime;
-  border-color: $lime;
-  height: 50px;
-  line-height: 36px;
-  &:hover,
-  &:focus {
-    background-color: $limehover;
-    border-color: $limehover;
-    color: #000;
   }
 }
 
@@ -206,9 +190,9 @@ body {
     text-align: center;
     &:hover {
       background: #f0f5f5;
-      color: $indigo;
+      color: red;
       a {
-        color: $indigo;
+        color: red;
         font-weight: bold;
       }
     }
@@ -286,20 +270,6 @@ svg {
   pointer-events: none;
 }
 
-.indigo-color {
-  color: $indigo;
-}
-
-.indigo-color-link {
-  color: $indigo;
-  text-decoration: underline;
-  font-weight: bold;
-  &:hover {
-    color: $indigo;
-    text-decoration: none;
-  }
-}
-
 /* owl */
 
 /* gradient */
@@ -341,7 +311,7 @@ button.owl-dot {
 
 .owl-dots .owl-dot.active span,
 .owl-dots .owl-dot:hover span {
-  background: $indigo;
+  background: red;
 }
 
 .owl-prev {
@@ -354,8 +324,7 @@ button.owl-dot {
   border-top-right-radius: 4px;
   cursor: pointer;
   &::after {
-    content: "\e903";
-    font-family: $icomoon;
+    content: "<";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -376,8 +345,7 @@ button.owl-dot {
   border-top-left-radius: 4px;
   cursor: pointer;
   &::after {
-    content: "\e904";
-    font-family: $icomoon;
+    content: ">";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -424,7 +392,7 @@ input[type="radio"] + label:before {
 
 input[type="radio"]:checked + label:after {
   content: '';
-  background: $indigo;
+  background: red;
   border-radius: 50%;
   width: 12px;
   height: 12px;
@@ -444,8 +412,8 @@ input[type="checkbox"] + label:before {
 }
 
 input[type="checkbox"]:checked + label:before {
-  background: $indigo url(../img/checkbox.svg) center no-repeat;
+  background: red url(../img/checkbox.svg) center no-repeat;
   background-size: 11px 8px;
-  border-color: $indigo;
+  border-color: red;
 }
 /* /inputs*/

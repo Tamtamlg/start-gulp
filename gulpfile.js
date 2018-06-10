@@ -3,7 +3,7 @@
 // Определим константу с папками
 const dirs = {
   source: 'src',  // папка с исходниками (путь от корня проекта)
-  build: 'dist', // папка с результатом работы (путь от корня проекта)
+  build: 'dist',  // папка с результатом работы (путь от корня проекта)
 };
 
 // Определим необходимые инструменты
@@ -35,7 +35,7 @@ const fileinclude = require('gulp-file-include');
 
 // Перечисление и настройки плагинов postCSS, которыми обрабатываются стилевые файлы
 let postCssPlugins = [
-  autoprefixer({                                           // автопрефиксирование
+  autoprefixer({                                           // автопрефиксер
     browsers: ['last 2 version']
   }),
   mqpacker({                                               // объединение медиавыражений с последующей их сортировкой
@@ -129,6 +129,14 @@ gulp.task('copy:js', function () {
     .pipe(gulp.dest(dirs.build + '/js'));
 });
 
+// Копирование css
+gulp.task('copy:css', function () {
+  return gulp.src([
+      dirs.source + '/css/*.css',
+    ])
+    .pipe(gulp.dest(dirs.build + '/css'));
+});
+
 // Ручная оптимизация изображений
 // Использование: folder=src/img npm start img:opt
 const folder = process.env.folder;
@@ -209,7 +217,7 @@ gulp.task('build', function (callback) {
   gulpSequence(
     'clean',
     ['sprite:svg'],
-    ['style', 'js', 'copy:img', 'copy:fonts', 'copy:js', 'copy:favicon'],
+    ['style', 'js', 'copy:img', 'copy:fonts', 'copy:js', 'copy:css', 'copy:favicon'],
     'html',
     callback
   );
@@ -248,6 +256,8 @@ gulp.task('serve', ['build'], function() {
   gulp.watch('*.svg', {cwd: spriteSvgPath}, ['watch:sprite:svg']);
   // Слежение за JS
   gulp.watch(dirs.source + '/js/**/*.*', ['watch:js']);
+  // Слежение за файлами css, которые не нужно компилировать
+  gulp.watch(dirs.source + '/css/*.css', ['watch:css']);
 });
 
 // Браузерсинк с 3-м галпом — такой браузерсинк...
@@ -256,6 +266,7 @@ gulp.task('watch:img', ['copy:img'], reload);
 gulp.task('watch:fonts', ['copy:fonts'], reload);
 gulp.task('watch:sprite:svg', ['sprite:svg'], reload);
 gulp.task('watch:js', ['copy:js'], reload);
+gulp.task('watch:css', ['copy:css'], reload);
 
 // Перезагрузка браузера
 function reload (done) {

@@ -43,6 +43,7 @@
 dist/           # Папка сборки, здесь работает сервер автообновлений.
 src/            # Исходные файлы.
   blocks/       # - блоки проекта.
+  css/          # - файлы css, которые не нужно компилировать.
   favicon/      # - фавиконки.
   fonts/        # - шрифты проекта.
   img/          # - картинки.
@@ -56,7 +57,7 @@ src/            # Исходные файлы.
 ## Разметка
 
 HTML обрабатывается "gulp-file-include".
-Блок вставляется в разметку так: `@@include('blocks/header/header.html')`, можно использовать json для передачи параметров ` @@include('tabs-slider__item/tabs-slider__item.html', {"img": "img/tabs-slider-2.jpg"})`. Параметры из json всавляются так: `<img src="@@img" alt="">`
+Блок вставляется в разметку так: `@@include('blocks/header/header.html')`, можно использовать json для передачи параметров ` @@include('slider__item/slider__item.html', {"img": "img/slider-2.jpg"})`. Параметры из json вставляются так: `<img src="@@img" alt="">`
 
 
 

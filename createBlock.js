@@ -2,20 +2,19 @@
 
 // Требует node.js и пакета mkdirp
 
-const fs = require('fs');                // будем работать с файловой системой
-const mkdirp = require('mkdirp');        // зависимость, должна быть установлена (см. описание выше)
+const fs = require('fs');                                                       // будем работать с файловой системой
+const mkdirp = require('mkdirp');                                               // зависимость, должна быть установлена (см. описание выше)
 
-let blockName = process.argv[2];          // получим имя блока
-let defaultExtensions = ['scss', 'html', 'img']; // расширения по умолчанию
+let blockName = process.argv[2];                                                // получим имя блока
+let defaultExtensions = ['scss', 'html', 'img'];                                // расширения по умолчанию
 let extensions = uniqueArray(defaultExtensions.concat(process.argv.slice(3)));  // добавим введенные при вызове расширения (если есть)
 let styleManagerPath = './src/scss/style.scss';
-let pugMixinsPath = './src/mixins.pug';
 
 // Если есть имя блока
 if(blockName) {
 
   let dirPath = './src/blocks/' + blockName + '/'; // полный путь к создаваемой папке блока
-  mkdirp(dirPath, function(err){                 // создаем
+  mkdirp(dirPath, function(err){                   // создаем
 
     // Если какая-то ошибка — покажем
     if(err) {
@@ -35,7 +34,7 @@ if(blockName) {
 
         // Если это scss
         if (extention === 'scss') {
-          fileContent = `// В этом файле должны быть стили для БЭМ-блока ${blockName}, его элементов, \n// модификаторов, псевдоселекторов, псевдоэлементов, @media-условий...\n \n\n.${blockName} {\n\n  \n}\n`;
+          fileContent = `.${blockName} {\n  \n}\n`;
           let styleFileImport = '@import \'' + dirPath + blockName + '.scss\';';
 
           // Читаем файл диспетчера подключений
@@ -90,57 +89,9 @@ if(blockName) {
           fileContent = `// (function(){\n// код\n// }());\n`;
         }
 
-        // Если это Pug
-        else if(extention == 'pug') {
-          fileContent = `mixin ${blockName}()\n  div ${blockName}\n`;
-
-          let includeMixin = 'include blocks/' + blockName + '/' + blockName + '.pug';
-
-          // Читаем файл диспетчера подключений
-          let connectManager = fs.readFileSync(pugMixinsPath, 'utf8');
-
-          // Делаем из строк массив, фильтруем массив, оставляя только строки с незакомментированными импортами
-          let fileSystem = connectManager.split('\n').filter(function(item) {
-            if(/^(\s*)include/.test(item)) return true;
-            else return false;
-          });
-
-          // Создаем регулярку с импортом
-          let reg = new RegExp(includeMixin, '');
-
-          // Создадим флаг отсутствия блока среди импортов
-          let impotrtExist = false;
-
-          // Обойдём массив и проверим наличие импорта
-          for (var i = 0, j=fileSystem.length; i < j; i++) {
-            if(reg.test(fileSystem[i])) {
-              impotrtExist = true;
-              break;
-            }
-          }
-
-          // Если флаг наличия импорта по-прежнему опущен, допишем импорт
-          if(!impotrtExist) {
-            // Открываем файл
-            fs.open(pugMixinsPath, 'a', function(err, fileHandle) {
-              // Если ошибок открытия нет...
-              if (!err) {
-                // Запишем в конец файла
-                fs.write(fileHandle, includeMixin + '\n', null, 'utf8', function(err, written) {
-                  if (!err) {
-                    console.log(`В ${pugMixinsPath} записано: ${includeMixin}`);
-                  } else {
-                    console.log(`ОШИБКА записи в ${pugMixinsPath}: ${err}`);
-                  }
-                });
-              } else {
-                console.log(`ОШИБКА открытия ${pugMixinsPath}: ${err}`);
-              }
-            });
-          }
-          else {
-            console.log(`Инклуд примеси НЕ прописан в ${pugMixinsPath} (он там уже есть)`);
-          }
+        // Если это html
+        else if(extention == 'html') {
+          fileContent = `<!-- ${blockName} -->\n<div class="${blockName}">\n\n</div>\n<!-- /${blockName} -->`;
         }
 
         // Если нужна подпапка для картинок
