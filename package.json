@@ -1,5 +1,5 @@
 {
-  "name": "Start",
+  "name": "start",
   "version": "1.0.0",
   "description": "Starting project with Gulp",
   "scripts": {
@@ -41,7 +41,10 @@
     "postcss-object-fit-images": "^1.1.2"
   },
   "dependencies": {
+    "bootstrap": "^4.1.3",
+    "jquery": "^3.3.1",
     "object-fit-images": "^3.2.3",
+    "popper.js": "^1.14.4",
     "svg4everybody": "^2.1.8"
   }
 }
