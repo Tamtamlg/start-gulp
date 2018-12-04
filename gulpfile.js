@@ -262,7 +262,7 @@ gulp.task('serve', ['build'], function() {
   gulp.watch(dirs.source + '/css/*.css', ['watch:css']);
 });
 
-// Браузерсинк с 3-м галпом — такой браузерсинк...
+
 gulp.task('watch:html', ['html'], reload);
 gulp.task('watch:img', ['copy:img'], reload);
 gulp.task('watch:fonts', ['copy:fonts'], reload);
