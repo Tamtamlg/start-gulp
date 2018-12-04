@@ -24,19 +24,19 @@ body {
 }
 
 ::-webkit-input-placeholder {
-  color: #9d9d9d;
+  color: $placeholderColor;
 }
 
 ::-moz-placeholder {
-  color: #9d9d9d;
+  color: $placeholderColor;
 }
 
 :-moz-placeholder {
-  color: #9d9d9d;
+  color: $placeholderColor;
 }
 
 :-ms-input-placeholder {
-  color: #9d9d9d;
+  color: $placeholderColor;
 }
 
 // @media (min-width: 1300px) {
@@ -96,7 +96,7 @@ body {
 .spinner>div {
   width: 18px;
   height: 18px;
-  background-color: red;
+  background-color: $black;
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
@@ -165,8 +165,6 @@ body {
   line-height: 36px;
   &:hover,
   &:focus {
-    // background-color: redhover;
-    // border-color: redhover;
     color: #fff;
   }
 }
