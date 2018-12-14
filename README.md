@@ -17,6 +17,10 @@
       <td>Запустить сборку, сервер и слежение за файлами</td>
     </tr>
     <tr>
+      <td><code>folder=src/img npm start img:opt</code></td>
+      <td>Оптимизация изображений</td>
+    </tr>
+    <tr>
       <td><code>gulp ЗАДАЧА</code></td>
       <td>Запустить задачу с названием ЗАДАЧА (список задач в <code>gulpfile.js</code>)</td>
     </tr>
@@ -25,7 +29,7 @@
 
 
 
-## Как начать новый проект
+## Начало работы
 
 1. Клонировать этот репозиторий в новую папку (`git clone https://github.com/Tamtamlg/start-gulp new-project`) и зайти в неё (`cd new-project`).
 2. Стереть историю разработки этого репозитория (`rm -rf .git`), инициировать новый (`git init`), создать удалённый репозиторий и привязать его (`git remote add origin АДРЕС`).

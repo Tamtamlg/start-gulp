@@ -8,7 +8,6 @@ const dirs = {
 
 // Определим необходимые инструменты
 const gulp = require('gulp');
-const gulpSequence = require('gulp-sequence');
 const rename = require('gulp-rename');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
@@ -53,10 +52,9 @@ let images = [
 // Cписок обрабатываемых файлов в указанной последовательности
 let jsList = [
   './node_modules/jquery/dist/jquery.min.js',
-  './node_modules/popper/dist/popper.min.js',
   './node_modules/bootstrap/dist/js/bootstrap.min.js',
-  './node_modules/svg4everybody/dist/svg4everybody.js',
-  './node_modules/object-fit-images/dist/ofi.js'
+  './node_modules/svg4everybody/dist/svg4everybody.min.js',
+  './node_modules/object-fit-images/dist/ofi.min.js'
 ];
 
 // Компиляция и обработка стилей
@@ -85,7 +83,7 @@ gulp.task('style', function () {
 
 // Обработка HTML
 gulp.task('html', function() {
-  gulp.src(dirs.source + '/*.html')
+  return gulp.src(dirs.source + '/*.html')
     .pipe(fileinclude({
       prefix: '@@',
       basepath: '@file'
@@ -194,8 +192,7 @@ gulp.task('sprite:svg', function (callback) {
 gulp.task('clean', function () {
   return del([
     dirs.build + '/**/*',
-    '!' + dirs.build + '/readme.md',
-    dirs.source + '/blocks/sprite-png/img',
+    '!' + dirs.build + '/readme.md'
   ]);
 });
 
@@ -205,7 +202,7 @@ gulp.task('js', function (callback) {
     return gulp.src(jsList)
       .pipe(plumber({ errorHandler: onError }))             // не останавливаем автоматику при ошибках
       .pipe(concat('vendor.min.js'))                        // конкатенируем все файлы в один с указанным именем
-      .pipe(uglify())                                       // сжимаем
+      // .pipe(uglify())
       .pipe(gulp.dest(dirs.build + '/js'));                 // записываем
   }
   else {
@@ -215,21 +212,15 @@ gulp.task('js', function (callback) {
 });
 
 // Сборка всего
-gulp.task('build', function (callback) {
-  gulpSequence(
-    'clean',
-    ['sprite:svg'],
-    ['style', 'js', 'copy:img', 'copy:fonts', 'copy:js', 'copy:css', 'copy:favicon'],
-    'html',
-    callback
-  );
-});
-
-// Задача по умолчанию
-gulp.task('default', ['serve']);
+gulp.task('build', gulp.series(
+  'clean',
+  gulp.parallel('sprite:svg', 'copy:favicon'),
+  gulp.parallel('style', 'js', 'copy:img', 'copy:fonts', 'copy:js', 'copy:css'),
+  'html'
+));
 
 // Локальный сервер, слежение
-gulp.task('serve', ['build'], function() {
+gulp.task('serve', gulp.series('build', function() {
   browserSync.init({
     server: dirs.build,
     startPath: 'index.html',
@@ -243,32 +234,25 @@ gulp.task('serve', ['build'], function() {
     dirs.source + '/scss/fonts.scss',
     dirs.source + '/scss/base.scss',
     dirs.source + '/blocks/**/*.scss',
-  ], ['style']);
+  ], gulp.series('style'));
   // Слежение за html
   gulp.watch([
     dirs.source + '/**/*.html',
-  ], ['watch:html']);
+  ], gulp.series('html', reload));
   // Слежение за изображениями
   if(images.length) {
-    gulp.watch(images, ['watch:img']);
+    gulp.watch(images, gulp.series('copy:img', reload));
   }
   // Слежение за шрифтами
-  gulp.watch(dirs.source + '/fonts/**/*.*', ['watch:fonts']);
+  gulp.watch(dirs.source + '/fonts/**/*.*', gulp.series('copy:fonts', reload));
   // Слежение за SVG (спрайты)
-  gulp.watch('*.svg', {cwd: spriteSvgPath}, ['watch:sprite:svg']);
+  gulp.watch('*.svg', {cwd: spriteSvgPath}, gulp.series('sprite:svg', reload));
   // Слежение за JS
-  gulp.watch(dirs.source + '/js/**/*.*', ['watch:js']);
+  gulp.watch(dirs.source + '/js/**/*.*', gulp.series('copy:js', reload));
   // Слежение за файлами css, которые не нужно компилировать
-  gulp.watch(dirs.source + '/css/*.css', ['watch:css']);
-});
+  gulp.watch(dirs.source + '/css/*.css', gulp.series('copy:css', reload));
+}));
 
-
-gulp.task('watch:html', ['html'], reload);
-gulp.task('watch:img', ['copy:img'], reload);
-gulp.task('watch:fonts', ['copy:fonts'], reload);
-gulp.task('watch:sprite:svg', ['sprite:svg'], reload);
-gulp.task('watch:js', ['copy:js'], reload);
-gulp.task('watch:css', ['copy:css'], reload);
 
 // Перезагрузка браузера
 function reload (done) {
@@ -286,9 +270,14 @@ function fileExist(path) {
   }
 }
 
-var onError = function(err) {
+let onError = function(err) {
   notify.onError({
     title: 'Error in ' + err.plugin,
   })(err);
   this.emit('end');
 };
+
+// Задача по умолчанию
+gulp.task('default',
+  gulp.series('serve')
+);
