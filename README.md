@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     <tr>
-      <td width="22%"><code>npm i</code></td>
+      <td width="40%"><code>npm i</code></td>
       <td>Установить зависимости</td>
     </tr>
     <tr>
@@ -18,7 +18,7 @@
     </tr>
     <tr>
       <td><code>folder=src/img npm start img:opt</code></td>
-      <td>Оптимизация изображений</td>
+      <td>Ручная оптимизация изображений</td>
     </tr>
     <tr>
       <td><code>gulp ЗАДАЧА</code></td>
