@@ -1,5 +1,5 @@
-build/*
-!build/readme.md
+dist/*
+!dist/readme.md
 design/*
 !design/readme.md
 
