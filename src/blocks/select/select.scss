@@ -1,0 +1,26 @@
+.select {
+  .select__input {
+    background: #fff;
+    cursor: pointer;
+  }
+  .dropdown-menu.show {
+    width: 100%;
+  }
+  .select__form-group {
+    position: relative;
+    cursor: pointer;
+  }
+  .select__svg {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translate(0, -50%);
+    transition: all 0.3s;
+    transform-origin: center;
+  }
+  &.show {
+    .select__svg {
+      transform: rotate(180deg) translate(0, 50%);
+    }
+  }
+}

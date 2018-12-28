@@ -1,0 +1,15 @@
+<!-- select -->
+<div class="select dropdown">
+  <div class="form-group select__form-group" data-toggle="dropdown">
+    <input type="text" disabled class="form-control select__input" id="@@id" placeholder="Select">
+    <svg class="svg select__svg" width="20px" height="10px">
+      <use xlink:href="img/sprite.svg#chevron-down"></use>
+    </svg>
+  </div>
+  <div class="dropdown-menu">
+    @@for (var i = 0; i < arr.length; i++) {
+      <a class="dropdown-item" href="#">`+arr[i]+`</a>
+    }
+  </div>
+</div>
+<!-- /select -->

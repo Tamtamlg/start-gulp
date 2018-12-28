@@ -11,6 +11,16 @@ $(window).on('load', function () {
 });
 
 
+/**
+ * select
+ */
+$(function () {
+  var selectItem = $('.select .dropdown-item');
+  selectItem.click(function() {
+    $(this).closest('.select').find('.select__input').val($(this).text());
+  });
+});
+
 
 $(function () {
 
