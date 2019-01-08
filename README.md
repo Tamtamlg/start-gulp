@@ -21,8 +21,8 @@
       <td>Ручная оптимизация изображений</td>
     </tr>
     <tr>
-      <td><code>gulp ЗАДАЧА</code></td>
-      <td>Запустить задачу с названием ЗАДАЧА (список задач в <code>gulpfile.js</code>)</td>
+      <td><code>gulp critical</code></td>
+      <td>Ручное встраивание критического css</td>
     </tr>
   </tbody>
 </table>

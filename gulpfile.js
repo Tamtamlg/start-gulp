@@ -30,6 +30,7 @@ const cleanCSS = require('gulp-cleancss');
 const wait = require('gulp-wait');
 const htmlbeautify = require('gulp-html-beautify');
 const fileinclude = require('gulp-file-include');
+const critical = require('critical').stream;
 
 // Перечисление и настройки плагинов postCSS, которыми обрабатываются стилевые файлы
 let postCssPlugins = [
@@ -217,6 +218,16 @@ gulp.task('build', gulp.series(
   gulp.parallel('style', 'js', 'copy:img', 'copy:fonts', 'copy:js', 'copy:css'),
   'html'
 ));
+
+// Встраивание критического css
+gulp.task('critical', gulp.series('build', function() {
+  return gulp.src('dist/*.html')
+    .pipe(critical({base: 'dist/', inline: true, css: ['dist/css/style.css']}))
+    .on('error', function(err) {
+      log.error(err.message);
+    })
+    .pipe(gulp.dest('dist'));
+}));
 
 // Локальный сервер, слежение
 gulp.task('serve', gulp.series('build', function() {
