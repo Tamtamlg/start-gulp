@@ -9,7 +9,6 @@ let blockName = process.argv[2];                                                
 let defaultExtensions = ['scss', 'html', 'img'];                                // расширения по умолчанию
 let extensions = uniqueArray(defaultExtensions.concat(process.argv.slice(3)));  // добавим введенные при вызове расширения (если есть)
 let styleManagerPath = './src/scss/style.scss';
-let libraryPath = './src/blocks/block-library/block-library.html';
 
 // Если есть имя блока
 if(blockName) {
@@ -93,24 +92,6 @@ if(blockName) {
         // Если это html
         else if(extention == 'html') {
           fileContent = `<!-- ${blockName} -->\n<div class="${blockName}">\n\n</div>\n<!-- /${blockName} -->`;
-
-          // Добавим блок в библиотеку компонентов
-          let libraryFileImport = '@@include(\'../' + blockName + '/' + blockName + '.html\') <hr>';
-          fs.open(libraryPath, 'a', function(err, fileHandle) {
-            // Если ошибок открытия нет...
-            if (!err) {
-              // Запишем в конец файла
-              fs.write(fileHandle, libraryFileImport + '\n', null, 'utf8', function(err, written) {
-                if (!err) {
-                  console.log(`В ${libraryPath} записано: ${libraryFileImport}`);
-                } else {
-                  console.log(`ОШИБКА записи в ${libraryPath}: ${err}`);
-                }
-              });
-            } else {
-              console.log(`ОШИБКА открытия ${libraryPath}: ${err}`);
-            }
-          });
         }
 
         // Если нужна подпапка для картинок
