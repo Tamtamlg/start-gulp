@@ -242,3 +242,19 @@ input.error {
 // }
 
 /* /owl */
+
+
+/* demo, удалите этот блок перед началом разработки */
+img{
+  max-width: 100%;
+  display: block;
+}
+
+.bg {
+  height: 400px;
+  &.lazy-bg--loaded {
+    background: url('../img/gulp-1.png') center no-repeat;
+    background-size: cover;
+  }
+}
+/* /demo */

@@ -53,6 +53,7 @@ src/                                            # Исходные файлы.
   fonts/                                        # - шрифты проекта.
   img/                                          # - картинки.
   js/                                           # - js-файлы.
+  js/vendor                                     # - js-файлы, которые не подключаются через npm
   scss/                                         # - стили scss.
   svg/                                          # - файлы для svg-спрайта.
   index.html                                    # - главная страница проекта.
@@ -75,6 +76,58 @@ HTML обрабатывается "gulp-file-include".
 `src/scss/fonts.scss` - Шрифты.
 
 
+
+## Картинки
+
+Дополнительные изображения в формате `webp` генерируются автоматически.
+Если для разных разрешений экрана используются разные изображения, то подключаем их через элемент `<picture>`, а НЕ используем `display: none;`.
+Реализован `lazy loading` при помощи `IntersectionObserver`. Изображения будут лениво подгружаться, если им присвоен класс `.lazy` и указаны атрибуты `data-src` и `data-srcset`.
+Пример использования:
+```bash
+<img
+  class="lazy"
+  src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+  data-src="superstar@2x.jpg"
+  data-srcset="superstar@2x.jpg 2x, superstar.jpg 1x"
+/>
+```
+или лучше так:
+```bash
+<picture>
+  <source class="lazy" srcset="img/superstar@2x.webp 2x, img/superstar.webp 1x" type="image/webp" media="(min-width: 768px)">
+  <source class="lazy" srcset="img/superstar@2x.jpg 2x, img/superstar.jpg 1x" media="(min-width: 768px)">
+  <source class="lazy" srcset="img/superstar-mobile@2x.webp 2x, img/superstar-mobile.webp 1x" type="image/webp">
+  <source class="lazy" srcset="img/superstar-mobile@2x.jpg 2x, img/superstar-mobile.jpg 1x">
+  <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" srcset="img/superstar@2x.jpg 2x" alt="">
+</picture>
+```
+а еще лучше так:
+```bash
+<picture>
+  <source class="lazy" srcset="img/superstar@2x.webp 2x, img/superstar.webp 1x" type="image/webp" media="(min-width: 768px)">
+  <source class="lazy" srcset="img/superstar@2x.jpg 2x, img/superstar.jpg 1x" media="(min-width: 768px)">
+  <source class="lazy" srcset="img/superstar-mobile@2x.webp 2x, img/superstar-mobile.webp 1x" type="image/webp">
+  <source class="lazy" srcset="img/superstar-mobile@2x.jpg 2x, img/superstar-mobile.jpg 1x">
+  <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" srcset="img/superstar@2x.jpg 2x" alt="">
+</picture>
+<noscript>
+  <picture>
+    <source srcset="img/superstar@2x.webp 2x, img/superstar.webp 1x" type="image/webp" media="(min-width: 768px)">
+    <source srcset="img/superstar@2x.jpg 2x, img/superstar.jpg 1x" media="(min-width: 768px)">
+    <source srcset="img/superstar-mobile@2x.webp 2x, img/superstar-mobile.webp 1x" type="image/webp">
+    <source srcset="img/superstar-mobile@2x.jpg 2x, img/superstar-mobile.jpg 1x">
+    <img src="img/superstar.jpg" srcset="img/superstar@2x.jpg 2x" alt="">
+  </picture>
+</noscript>
+```
+Для ленивой загрузки background-image необходимо к блоку добавить класс `.lazy-bg` и такие стили:
+```bash
+.some-block {
+  &.lazy-bg--loaded {
+    background: url('../img/background.png');
+  }
+}
+```
 
 ## SVG
 

@@ -35,6 +35,8 @@
     "gulp-svgstore": "^6.0.0",
     "gulp-uglify": "^3.0.0",
     "gulp-wait": "0.0.2",
+    "gulp-webp": "^4.0.1",
+    "gulp-webpcss": "^1.1.1",
     "imagemin-pngquant": "^5.0.0",
     "mkdirp": "^0.5.1",
     "postcss-object-fit-images": "^1.1.2"

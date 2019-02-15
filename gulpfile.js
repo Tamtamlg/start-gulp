@@ -30,6 +30,8 @@ const cleanCSS = require('gulp-cleancss');
 const wait = require('gulp-wait');
 const htmlbeautify = require('gulp-html-beautify');
 const fileinclude = require('gulp-file-include');
+const webp = require('gulp-webp');
+const webpcss = require("gulp-webpcss");
 const critical = require('critical').stream;
 
 // Перечисление и настройки плагинов postCSS, которыми обрабатываются стилевые файлы
@@ -54,7 +56,8 @@ let images = [
 let jsList = [
   './node_modules/jquery/dist/jquery.min.js',
   './node_modules/svg4everybody/dist/svg4everybody.min.js',
-  './node_modules/object-fit-images/dist/ofi.min.js'
+  './node_modules/object-fit-images/dist/ofi.min.js',
+  './src/js/vendor/*.js'
 ];
 
 // Компиляция и обработка стилей
@@ -72,13 +75,14 @@ gulp.task('style', function () {
     .pipe(wait(100))
     .pipe(sourcemaps.init())                               // инициируем карту кода
     .pipe(sass())                                          // компилируем
+    .pipe(webpcss())
     .pipe(postcss(postCssPlugins))                         // делаем постпроцессинг
     .pipe(sourcemaps.write('/'))                           // записываем карту кода как отдельный файл
     .pipe(gulp.dest(dirs.build + '/css/'))                 // записываем CSS-файл
     .pipe(browserSync.stream({match: '**/*.css'}))         // укажем browserSync необходимость обновить страницы в браузере
     .pipe(rename('style.min.css'))                         // переименовываем (сейчас запишем рядом то же самое, но минимизированное)
     .pipe(cleanCSS())                                      // сжимаем и оптимизируем
-    .pipe(gulp.dest(dirs.build + '/css/'));                // записываем CSS-файл
+    .pipe(gulp.dest(dirs.build + '/css/'))                // записываем CSS-файл
 });
 
 // Обработка HTML
@@ -97,6 +101,8 @@ gulp.task('copy:img', function (callback) {
   if(images.length) {
     return gulp.src(images)
       .pipe(rename({dirname: ''}))
+      .pipe(gulp.dest(dirs.build + '/img'))
+      .pipe(webp())                                        // генерируем формат webp для всех изображений
       .pipe(gulp.dest(dirs.build + '/img'));
   }
   else {
@@ -124,7 +130,7 @@ gulp.task('copy:fonts', function () {
 // Копирование js
 gulp.task('copy:js', function () {
   return gulp.src([
-      dirs.source + '/js/**/*.*',
+      dirs.source + '/js/*.*',
     ])
     .pipe(gulp.dest(dirs.build + '/js'));
 });
@@ -258,7 +264,7 @@ gulp.task('serve', gulp.series('build', function() {
   // Слежение за SVG (спрайты)
   gulp.watch('*.svg', {cwd: spriteSvgPath}, gulp.series('sprite:svg', reload));
   // Слежение за JS
-  gulp.watch(dirs.source + '/js/**/*.*', gulp.series('copy:js', reload));
+  gulp.watch(dirs.source + '/js/**/*.*', gulp.series('copy:js', 'js',  reload));
   // Слежение за файлами css, которые не нужно компилировать
   gulp.watch(dirs.source + '/css/*.css', gulp.series('copy:css', reload));
 }));
