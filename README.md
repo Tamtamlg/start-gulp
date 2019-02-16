@@ -94,21 +94,21 @@ HTML обрабатывается "gulp-file-include".
 или лучше так:
 ```bash
 <picture>
-  <source class="lazy" srcset="img/superstar@2x.webp 2x, img/superstar.webp 1x" type="image/webp" media="(min-width: 768px)">
-  <source class="lazy" srcset="img/superstar@2x.jpg 2x, img/superstar.jpg 1x" media="(min-width: 768px)">
-  <source class="lazy" srcset="img/superstar-mobile@2x.webp 2x, img/superstar-mobile.webp 1x" type="image/webp">
-  <source class="lazy" srcset="img/superstar-mobile@2x.jpg 2x, img/superstar-mobile.jpg 1x">
-  <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" srcset="img/superstar@2x.jpg 2x" alt="">
+  <source class="lazy" data-srcset="img/superstar@2x.webp 2x, img/superstar.webp 1x" type="image/webp" media="(min-width: 768px)">
+  <source class="lazy" data-srcset="img/superstar@2x.jpg 2x, img/superstar.jpg 1x" media="(min-width: 768px)">
+  <source class="lazy" data-srcset="img/superstar-mobile@2x.webp 2x, img/superstar-mobile.webp 1x" type="image/webp">
+  <source class="lazy" data-srcset="img/superstar-mobile@2x.jpg 2x, img/superstar-mobile.jpg 1x">
+  <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/superstar@2x.jpg" data-srcset="img/superstar@2x.jpg 2x" alt="">
 </picture>
 ```
 а еще лучше так:
 ```bash
 <picture>
-  <source class="lazy" srcset="img/superstar@2x.webp 2x, img/superstar.webp 1x" type="image/webp" media="(min-width: 768px)">
-  <source class="lazy" srcset="img/superstar@2x.jpg 2x, img/superstar.jpg 1x" media="(min-width: 768px)">
-  <source class="lazy" srcset="img/superstar-mobile@2x.webp 2x, img/superstar-mobile.webp 1x" type="image/webp">
-  <source class="lazy" srcset="img/superstar-mobile@2x.jpg 2x, img/superstar-mobile.jpg 1x">
-  <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" srcset="img/superstar@2x.jpg 2x" alt="">
+  <source class="lazy" data-srcset="img/superstar@2x.webp 2x, img/superstar.webp 1x" type="image/webp" media="(min-width: 768px)">
+  <source class="lazy" data-srcset="img/superstar@2x.jpg 2x, img/superstar.jpg 1x" media="(min-width: 768px)">
+  <source class="lazy" data-srcset="img/superstar-mobile@2x.webp 2x, img/superstar-mobile.webp 1x" type="image/webp">
+  <source class="lazy" data-srcset="img/superstar-mobile@2x.jpg 2x, img/superstar-mobile.jpg 1x">
+  <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/superstar@2x.jpg" data-srcset="img/superstar@2x.jpg 2x" alt="">
 </picture>
 <noscript>
   <picture>

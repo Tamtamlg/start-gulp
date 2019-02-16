@@ -1,5 +1,7 @@
 'use strict';
 
+svg4everybody();
+
 /**
  * lazy loading
  */
@@ -34,6 +36,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     lazyBgs.forEach(function(lazyBg) {
       lazyBgObserver.observe(lazyBg);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.srcset = lazyImage.dataset.srcset;
+    });
+    lazyBgs.forEach(function(lazyBg) {
+      lazyBg.classList.add("lazy-bg--loaded");
     });
   }
 });
