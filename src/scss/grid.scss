@@ -2,10 +2,10 @@
 
 $col-count: 12 !default;
 $grid-gutter: 30px !default;
-$bp-small: 425px !default;
-$bp-medium: 769px !default;
-$bp-large: 1025px !default;
-$bp-xlarge: 1440px !default;
+$sm: 425px !default;
+$md: 769px !default;
+$lg: 1025px !default;
+$xlg: 1440px !default;
 // $container-sizes: ("small": 768px,
 // "large": 1440px) !default;
 
@@ -32,8 +32,8 @@ $bp-xlarge: 1440px !default;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  padding-right: $grid-gutter/2;
-  padding-left: $grid-gutter/2;
+  padding-right: $grid-gutter / 2;
+  padding-left: $grid-gutter / 2;
 }
 
 // @each $name,
@@ -47,8 +47,8 @@ $bp-xlarge: 1440px !default;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-right: -$grid-gutter/2;
-  margin-left: -$grid-gutter/2;
+  margin-right: -$grid-gutter / 2;
+  margin-left: -$grid-gutter / 2;
 
   &.row-reverse {
     flex-direction: row-reverse;
@@ -60,8 +60,8 @@ $bp-xlarge: 1440px !default;
   flex-grow: 1;
   flex-basis: 100%;
   max-width: 100%;
-  padding-left: $grid-gutter/2;
-  padding-right: $grid-gutter/2;
+  padding-left: $grid-gutter / 2;
+  padding-right: $grid-gutter / 2;
 
   &.col-reverse {
     flex-direction: column-reverse;
@@ -81,7 +81,7 @@ $bp-xlarge: 1440px !default;
   }
 }
 
-@include breakpoint-min($bp-small) {
+@include breakpoint-min($sm) {
   @for $i from 1 through $col-count {
     .col-sm-#{$i} {
       flex-basis: ($i / $col-count) * 100%;
@@ -96,7 +96,7 @@ $bp-xlarge: 1440px !default;
   }
 }
 
-@include breakpoint-min($bp-medium) {
+@include breakpoint-min($md) {
   @for $i from 1 through $col-count {
     .col-md-#{$i} {
       flex-basis: ($i / $col-count) * 100%;
@@ -111,7 +111,7 @@ $bp-xlarge: 1440px !default;
   }
 }
 
-@include breakpoint-min($bp-large) {
+@include breakpoint-min($lg) {
   @for $i from 1 through $col-count {
     .col-lg-#{$i} {
       flex-basis: ($i / $col-count) * 100%;
@@ -126,7 +126,7 @@ $bp-xlarge: 1440px !default;
   }
 }
 
-@include breakpoint-min($bp-xlarge) {
+@include breakpoint-min($xl) {
   @for $i from 1 through $col-count {
     .col-xlg-#{$i} {
       flex-basis: ($i / $col-count) * 100%;
