@@ -1,13 +1,12 @@
 // Сетка 
 
+$container-max-width: 1170px !default;
 $col-count: 12 !default;
 $grid-gutter: 30px !default;
 $sm: 425px !default;
 $md: 769px !default;
 $lg: 1025px !default;
-$xlg: 1440px !default;
-// $container-sizes: ("small": 768px,
-// "large": 1440px) !default;
+$xl: 1440px !default;
 
 @mixin breakpoint-min($bp) {
   @media (min-width: $bp) {
@@ -29,19 +28,20 @@ $xlg: 1440px !default;
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: $container-max-width;
   margin-left: auto;
   margin-right: auto;
   padding-right: $grid-gutter / 2;
   padding-left: $grid-gutter / 2;
 }
 
-// @each $name,
-// $size in $container-sizes {
-//   .container-#{$name} {
-//     max-width: $size;
-//   }
-// }
+.container-fluid {
+  width: 100%;
+  padding-right: $grid-gutter / 2;
+  padding-left: $grid-gutter / 2;
+  margin-right: auto;
+  margin-left: auto;
+}
 
 .row {
   display: flex;
@@ -55,10 +55,28 @@ $xlg: 1440px !default;
   }
 }
 
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  &>.col,
+  &>[class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+[class^=col-] {
+  position: relative;
+  width: 100%;
+  padding-left: $grid-gutter / 2;
+  padding-right: $grid-gutter / 2;
+}
+
 .col {
   position: relative;
   flex-grow: 1;
-  flex-basis: 100%;
+  flex-basis: 0;
   max-width: 100%;
   padding-left: $grid-gutter / 2;
   padding-right: $grid-gutter / 2;
@@ -68,23 +86,10 @@ $xlg: 1440px !default;
   }
 }
 
-@for $i from 1 through $col-count {
-  .col-xs-#{$i} {
-    flex-basis: ($i / $col-count) * 100%;
-    max-width: ($i / $col-count) * 100%;
-  }
-}
-
-@for $i from 1 through $col-count {
-  .col-xs-offset-#{$i} {
-    margin-left: ($i / $col-count) * 100%;
-  }
-}
-
 @include breakpoint-min($sm) {
   @for $i from 1 through $col-count {
     .col-sm-#{$i} {
-      flex-basis: ($i / $col-count) * 100%;
+      flex: 0 0 ($i / $col-count) * 100%;
       max-width: ($i / $col-count) * 100%;
     }
   }
@@ -99,7 +104,7 @@ $xlg: 1440px !default;
 @include breakpoint-min($md) {
   @for $i from 1 through $col-count {
     .col-md-#{$i} {
-      flex-basis: ($i / $col-count) * 100%;
+      flex: 0 0 ($i / $col-count) * 100%;
       max-width: ($i / $col-count) * 100%;
     }
   }
@@ -114,7 +119,7 @@ $xlg: 1440px !default;
 @include breakpoint-min($lg) {
   @for $i from 1 through $col-count {
     .col-lg-#{$i} {
-      flex-basis: ($i / $col-count) * 100%;
+      flex: 0 0 ($i / $col-count) * 100%;
       max-width: ($i / $col-count) * 100%;
     }
   }
@@ -128,26 +133,15 @@ $xlg: 1440px !default;
 
 @include breakpoint-min($xl) {
   @for $i from 1 through $col-count {
-    .col-xlg-#{$i} {
-      flex-basis: ($i / $col-count) * 100%;
+    .col-xl-#{$i} {
+      flex: 0 0 ($i / $col-count) * 100%;
       max-width: ($i / $col-count) * 100%;
     }
   }
 
   @for $i from 1 through $col-count {
-    .col-xlg-offset-#{$i} {
+    .col-xl-offset-#{$i} {
       margin-left: ($i / $col-count) * 100%;
     }
-  }
-}
-
-.no-gutters {
-  margin-right: 0;
-  margin-left: 0;
-
-  &>.col,
-  &>[class*="col-"] {
-    padding-right: 0;
-    padding-left: 0;
   }
 }
