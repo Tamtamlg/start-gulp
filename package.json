@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "object-fit-images": "^3.2.3",
     "svg4everybody": "^2.1.8"
   }
